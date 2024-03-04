@@ -1,0 +1,57 @@
+// C++ code
+//
+#define motorArriba 12          
+#define motorAbajo 11           
+#define pulsador     7          
+int estado = 1;
+int contador = 0;
+void setup()
+{
+  pinMode(motorArriba, OUTPUT);
+  pinMode(motorAbajo, OUTPUT);
+  pinMode(pulsador, INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  if(digitalRead(pulsador))
+  {
+    estado = (++estado) % 4;
+    contador = 100;
+    while(digitalRead(pulsador))
+    {
+      delay(20);
+    }
+  }
+  Serial.print("Valor del contador: ");
+  Serial.print(contador);
+  Serial.print(" | estado: ");
+  Serial.println(estado);
+  
+  if(contador > 0)
+  {
+    if(estado == 0)
+    {
+      digitalWrite(motorArriba,LOW);
+      digitalWrite(motorAbajo,HIGH);
+      delay(70);
+      contador --;
+    }
+    else if(estado == 2)
+    {         
+     digitalWrite(motorArriba, HIGH);            
+     digitalWrite(motorAbajo, LOW);             
+     delay(70);                                   
+     contador --;                                
+   } 
+    else 
+    {        
+     digitalWrite(motorArriba, LOW);             
+     digitalWrite(motorAbajo,LOW);             
+     delay(70);                                    
+     contador --;                               
+      
+    }
+  }               
+}
