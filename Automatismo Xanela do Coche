@@ -1,10 +1,10 @@
 // C++ code
 //
-#define motorArriba 12          
-#define motorAbajo 11           
-#define pulsador     7          
-int estado = 1;
-int contador = 0;
+#define motorArriba 12   //definimos el pin 12 del arduino         
+#define motorAbajo 11    //definimos el pin 11 del arduino         
+#define pulsador     7   //definimos el pin 7 del arduino       
+int estado = 1;          
+int contador = 0;        //contador para el número de impulsos 
 void setup()
 {
   pinMode(motorArriba, OUTPUT);
@@ -14,7 +14,7 @@ void setup()
 }
 
 void loop()
-{
+{ //Lectura del Pulsador
   if(digitalRead(pulsador))
   {
     estado = (++estado) % 4;
@@ -23,34 +23,34 @@ void loop()
     {
       delay(20);
     }
-  }
+  } //Fin de Lectura del Pulsador
   Serial.print("Valor del contador: ");
   Serial.print(contador);
   Serial.print(" | estado: ");
   Serial.println(estado);
-  
-  if(contador > 0)
+  //Accionamiento de los Motores
+  if(contador > 0) 
   {
     if(estado == 0)
     {
-      digitalWrite(motorArriba,LOW);
-      digitalWrite(motorAbajo,HIGH);
-      delay(70);
-      contador --;
+      digitalWrite(motorArriba,LOW); //Indica que la salida "motorArriba" no se activa
+      digitalWrite(motorAbajo,HIGH); //Indica que la salida "motorAbajo" se activa
+      delay(70); //Espera 7 segundos
+      contador --; //Resta una unidad cada vez que se ejecuta este bucle
     }
     else if(estado == 2)
     {         
-     digitalWrite(motorArriba, HIGH);            
-     digitalWrite(motorAbajo, LOW);             
-     delay(70);                                   
-     contador --;                                
+     digitalWrite(motorArriba, HIGH);  //Indica que la salida "motorArriba" se activa            
+     digitalWrite(motorAbajo, LOW);    //Indica que la salida "motorAbajo" no se activa          
+     delay(70); //Espera 7 segundos                                
+     contador --; //Resta una unidad cada vez que se ejecuta este bucle                              
    } 
     else 
     {        
-     digitalWrite(motorArriba, LOW);             
-     digitalWrite(motorAbajo,LOW);             
-     delay(70);                                    
-     contador --;                               
+     digitalWrite(motorArriba, LOW); //Indica que la salida "motorArriba" no se activa            
+     digitalWrite(motorAbajo,LOW); //Indica que la salida "motorAbajo" no se activa             
+     delay(70); //Espera 7 segundos                                   
+     contador --; //Resta una unidad cada vez que se ejecuta este bucle                             
       
     }
   }               
